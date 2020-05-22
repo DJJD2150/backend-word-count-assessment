@@ -25,30 +25,55 @@ should return a dictionary with words as keys, and their counts as values.
 
 # Your name, plus anyone who helped you with this assignment
 # Give credit where credit is due.
-__author__ = "???"
+__author__ = "DJJD2150, Janell Huyck, Tiffany McLean"
 
 import sys
 
 
 def create_word_dict(filename):
     """Returns a word/count dict for the given file."""
-    # Your code here
-    return
+    with open(filename, "r") as f:
+        word_dict = {}
+        line = f.read().split()
+        for word in line:
+            word = word.lower()
+            find_word = word_dict.get(word, 0)
+            if find_word == 0:
+                word_dict[word] = 1
+            elif find_word != 0:
+                word_dict[word] += 1
+    return word_dict
 
 
 def print_words(filename):
     """Prints one per line '<word> : <count>', sorted
     by word for the given file.
     """
-    # Your code here
-    return
+    # Take "word_dict" as it is from the "create_word_dict" function
+    # and assign them to a variable
+    count_dict = create_word_dict(filename)
+    # Sort "count_dict" alphabetically
+    count_list = sorted(count_dict.keys())
+    # Format each key/ value pair in "count_dict" as "<word> : <count>"
+    # Print each key/ value pair in the alphabetically sorted order
+    for word in count_list:
+        counted_words = print("{}:{}".format(word, count_dict[word]))
+    return counted_words
 
 
 def print_top(filename):
     """Prints the top count listing for the given file."""
-    # Your code here
-    return
-
+    # Take "word_dict" as it is from the "create_word_dict" function
+    # and assign them to a variable
+    topcount_dict = create_word_dict(filename)
+    # Sort "topcount_dict" by value from greatest to least in quantity
+    topcount_list = sorted(topcount_dict.items(), key=lambda t: t[-1], reverse=True)
+    # Reduce "topcount_list" to the top 20 greatest values
+    topcount_list = topcount_list[:20]
+    # Format each key/ value tuple in "count_dict" as "<word> : <count>"
+    for word in topcount_list:
+        topcounted_words = print(word[0] + " : " + str(word[1]))
+    return topcounted_words
 
 # This basic command line argument parsing code is provided and calls
 # the print_words() and print_top() functions which you must implement.
